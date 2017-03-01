@@ -1,16 +1,18 @@
 {
     "require": {
         "silex/silex": "~2.0",
-        "twig/twig": "^2.2"
+        "twig/twig": "^2.2",
+        "ramsey/uuid": "^3.5",
+        "illuminate/support": "^5.4"
     },
     "autoload": {
         "psr-4": {
-            "Workflow\\": ["app/", "src/"]
+            "Sample\\": ["app/", "src/"]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Workflow\\": ["tests/"]
+            "Sample\\": ["tests/"]
         }
     },
     "require-dev": {
