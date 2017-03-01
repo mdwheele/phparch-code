@@ -71,6 +71,6 @@ abstract class AggregateRoot
 
     private function getApplyMethod($event)
     {
-        return 'apply' . basename(str_replace('\\', '/', get_class($event)));
+        return 'apply' . class_basename($event);
     }
 }
