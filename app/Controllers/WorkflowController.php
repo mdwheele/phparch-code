@@ -21,6 +21,9 @@ class WorkflowController
 
         $events = $case->getUncommittedEvents();
 
+        // Events would be normally be stored in an EventStore and then dispatched to
+        // an bus where projectors are subscribed to receive them.
+
         $projector = new SimulationProjector(
             $simulation = new Simulation()
         );
@@ -46,6 +49,9 @@ class WorkflowController
 
         $events = $case->getUncommittedEvents();
 
+        // Events would be normally be stored in an EventStore and then dispatched to
+        // an bus where projectors are subscribed to receive them.
+
         $projector = new SimulationProjector(
             $simulation = new Simulation()
         );
@@ -68,6 +74,9 @@ class WorkflowController
         $case->input($secondUserTriggeredTask->getId());
 
         $events = $case->getUncommittedEvents();
+
+        // Events would be normally be stored in an EventStore and then dispatched to
+        // an bus where projectors are subscribed to receive them.
 
         $projector = new SimulationProjector(
             $simulation = new Simulation()

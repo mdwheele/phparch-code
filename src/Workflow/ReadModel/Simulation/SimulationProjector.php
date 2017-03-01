@@ -49,7 +49,7 @@ class SimulationProjector extends Projector
         $this->simulation->add(
             new Step(
                 "Workflow Started",
-                "The case-number was '{$event->caseNumber}'.",
+                "The workflow case number is <kbd>{$event->caseNumber}</kbd>.",
                 $this->screenshot(),
                 $event->attributes
             )
@@ -63,7 +63,7 @@ class SimulationProjector extends Projector
         $this->simulation->add(
             new Step(
                 "Input Was Provided",
-                "Input was provided to '{$event->taskId}''.",
+                "User input was provided to '{$event->taskId}''.",
                 $this->screenshot(),
                 $event->attributes
             )
@@ -75,7 +75,7 @@ class SimulationProjector extends Projector
         $this->simulation->add(
             new Step(
                 "Workflow Task Enabled",
-                $event->taskId->toString(),
+                "<kbd>{$event->taskId->toString()}</kbd> became enabled.",
                 $this->screenshot(),
                 $this->attributes
             )
@@ -89,7 +89,7 @@ class SimulationProjector extends Projector
         $this->simulation->add(
             new Step(
                 "Workflow Task Fired",
-                $event->taskId->toString(),
+                "<kbd>{$event->taskId->toString()}</kbd> was fired.",
                 $this->screenshot(),
                 $this->attributes
             )
@@ -101,7 +101,7 @@ class SimulationProjector extends Projector
         $this->simulation->add(
             new Step(
                 "Workflow Finished",
-                "A workflow is finished when its 'sink' is marked.",
+                "",
                 $this->screenshot(),
                 $this->attributes
             )
