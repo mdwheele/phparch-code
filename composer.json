@@ -1,0 +1,19 @@
+{
+    "require": {
+        "silex/silex": "~2.0",
+        "twig/twig": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Workflow\\": ["app/", "src/"]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Workflow\\": ["tests/"]
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    }
+}
