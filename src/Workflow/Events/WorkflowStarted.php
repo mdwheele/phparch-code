@@ -18,22 +18,22 @@ class WorkflowStarted
      * @var ProcessDefinition
      */
     public $definition;
-    
-    /**
-     * @var AttributeStore
-     */
-    public $attributes;
 
     /**
      * @var Marking
      */
     public $marking;
 
+    /**
+     * @var AttributeStore
+     */
+    public $attributes;
+
     public function __construct(Uuid $caseNumber, ProcessDefinition $definition, Marking $marking, AttributeStore $attributes)
     {
-        $this->caseNumber = $caseNumber;
-        $this->definition = $definition;
-        $this->attributes = $attributes;
-        $this->marking = $marking;
+        $this->caseNumber = deep_copy($caseNumber);
+        $this->definition = deep_copy($definition);
+        $this->marking = deep_copy($marking);
+        $this->attributes = deep_copy($attributes);
     }
 }

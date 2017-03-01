@@ -13,6 +13,6 @@ class WorkflowCompleted
 
     public function __construct(Uuid $caseNumber)
     {
-        $this->caseNumber = $caseNumber;
+        $this->caseNumber = deep_copy($caseNumber);
     }
 }

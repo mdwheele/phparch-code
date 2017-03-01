@@ -2,10 +2,10 @@
 
 namespace Sample\Workflow\Events;
 
+use Sample\Support\AttributeStore;
 use Sample\Support\Uuid;
-use Sample\Workflow\Marking;
 
-class WorkflowTaskFired
+class InputWasProvided
 {
     /**
      * @var Uuid
@@ -18,14 +18,14 @@ class WorkflowTaskFired
     public $taskId;
 
     /**
-     * @var Marking
+     * @var AttributeStore
      */
-    public $marking;
+    public $attributes;
 
-    public function __construct(Uuid $caseNumber, Uuid $taskId, Marking $marking)
+    public function __construct(Uuid $caseNumber, Uuid $taskId, AttributeStore $attributes)
     {
         $this->caseNumber = deep_copy($caseNumber);
         $this->taskId = deep_copy($taskId);
-        $this->marking = deep_copy($marking);
+        $this->attributes = deep_copy($attributes);
     }
 }

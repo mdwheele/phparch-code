@@ -12,7 +12,7 @@ abstract class Projector
             return;
         }
 
-        $this->$method($event);
+        $this->$method(deep_copy($event));
     }
 
     private function getApplyMethod($event)

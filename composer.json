@@ -3,12 +3,15 @@
         "silex/silex": "~2.0",
         "twig/twig": "^2.2",
         "ramsey/uuid": "^3.5",
-        "illuminate/support": "^5.4"
+        "illuminate/support": "^5.4",
+        "myclabs/deep-copy": "^1.6",
+        "symfony/twig-bridge": "^3.2"
     },
     "autoload": {
         "psr-4": {
             "Sample\\": ["app/", "src/"]
-        }
+        },
+        "files": ["src/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {

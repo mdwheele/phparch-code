@@ -19,9 +19,9 @@ class Simulation
         return $this->steps;
     }
 
-    public function asJson()
+    public function asArray()
     {
-        $steps = array_map(function($step) {
+        return array_map(function($step) {
             return [
                 'heading' => $step->heading,
                 'summary' => $step->summary,
@@ -29,7 +29,10 @@ class Simulation
                 'attributes' => json_decode($step->attributes)
             ];
         }, $this->getSteps());
+    }
 
-        return json_encode($steps);
+    public function asJson()
+    {
+        return json_encode($this->asArray());
     }
 }

@@ -7,6 +7,7 @@ use Sample\Support\Projector;
 use Sample\Workflow\Events\InputWasProvided;
 use Sample\Workflow\Events\WorkflowCompleted;
 use Sample\Workflow\Events\WorkflowStarted;
+use Sample\Workflow\Events\WorkflowTaskEnabled;
 use Sample\Workflow\Events\WorkflowTaskFired;
 use Sample\Workflow\Marking;
 use Sample\Workflow\ProcessDefinition;
@@ -62,9 +63,21 @@ class SimulationProjector extends Projector
         $this->simulation->add(
             new Step(
                 "Input Was Provided",
-                "The task, '{$event->taskId}', was triggered.",
+                "Input was provided to '{$event->taskId}''.",
                 $this->screenshot(),
                 $event->attributes
+            )
+        );
+    }
+
+    protected function applyWorkflowTaskEnabled(WorkflowTaskEnabled $event)
+    {
+        $this->simulation->add(
+            new Step(
+                "Workflow Task Enabled",
+                $event->taskId->toString(),
+                $this->screenshot(),
+                $this->attributes
             )
         );
     }

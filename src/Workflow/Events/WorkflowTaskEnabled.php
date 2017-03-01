@@ -23,8 +23,8 @@ class WorkflowTaskEnabled
 
     public function __construct(Uuid $caseNumber, Uuid $taskId, $triggerType)
     {
-        $this->caseNumber = $caseNumber;
-        $this->taskId = $taskId;
+        $this->caseNumber = deep_copy($caseNumber);
+        $this->taskId = deep_copy($taskId);
         $this->triggerType = $triggerType;
     }
 }

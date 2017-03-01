@@ -157,4 +157,77 @@ class ProcessDefinitionFactory
 
         return $definition;
     }
+
+    /**
+     * Returns a process with a single task that has a basic user input
+     * trigger.
+     */
+    public static function userTriggeredBasic()
+    {
+        $definition = new ProcessDefinition();
+
+        $definition
+            ->addCondition($c1 = new Condition)
+            ->addTask($c1, $t = Task::user(), $c2 = new Condition)
+            ->setSource($c1)
+            ->setSink($c2);
+
+        return $definition;
+    }
+    public static function userTriggeredSequential()
+    {
+        $definition = new ProcessDefinition();
+
+        $c1 = new Condition();
+        $c2 = new Condition();
+        $c3 = new Condition();
+        $t1 = Task::user();
+        $t2 = Task::user();
+
+        $definition
+            ->addCondition($c1)
+            ->addTask($c1, $t1, $c2)
+            ->addTask($c2, $t2, $c3)
+            ->setSource($c1)
+            ->setSink($c3);
+
+        return $definition;
+    }
+    public static function userTriggeredComplex()
+    {
+        $definition = new ProcessDefinition();
+
+        $c1 = new Condition();
+        $c2 = new Condition();
+        $c3 = new Condition();
+        $c4 = new Condition();
+        $c5 = new Condition();
+        $c6 = new Condition();
+        $c7 = new Condition();
+        $c8 = new Condition();
+        $c9 = new Condition();
+        $t1 = Task::automatic();
+        $t2 = Task::user();
+        $t3 = Task::automatic();
+        $t4 = Task::user();
+        $t5 = Task::automatic();
+        $t6 = Task::automatic();
+
+        $definition
+            ->addCondition($c1)
+            ->addTask($c1, $t1, $c2)
+            ->addOutputCondition($t1, $c3)
+            ->addOutputCondition($t1, $c4)
+            ->addTask($c2, $t2, $c6)
+            ->addTask($c3, $t3, $c5)
+            ->addTask($c4, $t4, $c8)
+            ->addTask($c5, $t5, $c7)
+            ->addTask($c6, $t6, $c9)
+            ->addTask($c7, $t6, $c9)
+            ->addTask($c8, $t6, $c9)
+            ->setSource($c1)
+            ->setSink($c9);
+
+        return $definition;
+    }
 }

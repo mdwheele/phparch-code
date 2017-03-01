@@ -1,11 +1,12 @@
 <?php
 
-namespace Workflow\Providers;
+namespace Sample\Providers;
 
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\Api\ControllerProviderInterface;
-use Workflow\Controllers\WorkflowController;
+use Sample\Controllers\WorkflowController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class RoutesProvider implements ControllerProviderInterface
 {
@@ -26,7 +27,13 @@ class RoutesProvider implements ControllerProviderInterface
         /** @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/', WorkflowController::class . ':index');
+        $controllers->get('/', function() use ($app) {
+            return new RedirectResponse($app->url('workflow.basic'));
+        });
+
+        $controllers->get('/workflows/basic', WorkflowController::class . ':showBasic')->bind('workflow.basic');
+        $controllers->get('/workflows/user/basic', WorkflowController::class . ':showUserBasic')->bind('workflow.user.basic');
+        $controllers->get('/workflows/user/complex', WorkflowController::class . ':showUserComplex')->bind('workflow.user.complex');
 
         return $controllers;
     }

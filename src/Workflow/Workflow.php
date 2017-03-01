@@ -167,7 +167,7 @@ class Workflow extends AggregateRoot
             $tasksEnabledByFiring = array_merge($tasksEnabledByFiring, $this->getTasksEnabledBy($arc->getCondition()));
         }
 
-        $this->apply(new WorkflowTaskFired($this->caseNumber, $task->getId(), $this->marking));
+        $this->apply(new WorkflowTaskFired($this->caseNumber, $task->getId(), Marking::fromMarking($this->marking)));
 
         foreach ($tasksEnabledByFiring as $task) {
             $this->apply(new WorkflowTaskEnabled($this->caseNumber, $task->getId(), $task->getTriggerType()));
@@ -195,20 +195,20 @@ class Workflow extends AggregateRoot
 
     protected function applyWorkflowStarted(WorkflowStarted $event)
     {
-        $this->caseNumber = $event->caseNumber;
-        $this->definition = $event->definition;
-        $this->marking = $event->marking;
-        $this->attributes = $event->attributes;
+        $this->caseNumber = deep_copy($event->caseNumber);
+        $this->definition = deep_copy($event->definition);
+        $this->marking = deep_copy($event->marking);
+        $this->attributes = deep_copy($event->attributes);
     }
 
     protected function applyInputWasProvided(InputWasProvided $event)
     {
-        $this->attributes = $event->attributes;
+        $this->attributes = deep_copy($event->attributes);
     }
 
     protected function applyWorkflowTaskFired(WorkflowTaskFired $event)
     {
-        $this->marking = $event->marking;
+        $this->marking = deep_copy($event->marking);
     }
 
     public function getId()
