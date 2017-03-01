@@ -1,52 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Workflow Simulation Viewer</title>
+{% extends "layouts/master.twig" %}
 
-    <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
-
-    <style>
-        #container {
-            display: flex;
-            width: 960px;
-            margin: 0 auto;
-        }
-
-        #sidebar {
-            width: 300px;
-            padding-right: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div id="container">
-        <div id="sidebar">
-            <h3>Triggered Automatically</h3>
-            <ul>
-                <li><a href="{{ url('workflow.basic') }}">Basic</a></li>
-            </ul>
-
-            <h3>Triggered by User Input</h3>
-            <ul>
-                <li><a href="{{ url('workflow.user.basic') }}">Basic</a></li>
-                <li><a href="{{ url('workflow.user.complex') }}">Complex</a></li>
-            </ul>
-        </div>
-        <div id="content">
-            {% for step in simulation.steps %}
-                <h3>✉ {{ step.heading }}</h3>
-                {% if step.summary %}<p>&ldquo;{{ step.summary | raw }}&rdquo;</p>{% endif %}
-                <img width="700" src="{{ step.graph }}" />
-                <h5>Case Attributes</h5>
-                <pre>{{ step.attributes }}</pre>
-                <hr>
-            {% endfor %}
-        </div>
-    </div>
-</body>
-</html>
+{% block content %}
+    {% for step in simulation.steps %}
+        <h3>✉ {{ step.heading }}</h3>
+        {% if step.summary %}<p>&ldquo;{{ step.summary | raw }}&rdquo;</p>{% endif %}
+        <img width="700" src="{{ step.graph }}" />
+        <h5>Case Attributes</h5>
+        <pre>{{ step.attributes }}</pre>
+        <hr>
+    {% endfor %}
+{% endblock %}

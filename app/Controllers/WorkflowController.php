@@ -88,4 +88,63 @@ class WorkflowController
 
         return $app->render('basic.twig', compact('simulation'));
     }
+
+    public function showVueApp(Application $app)
+    {
+        return $app->render('vue.twig');
+    }
+
+    public function showBasicSimulationJson()
+    {
+        $definition = ProcessDefinitionFactory::userTriggeredBasic();
+        $firstTask = $definition->getTasks()[0];
+
+        $case = Workflow::start($definition);
+
+        // Our input triggers only care that there is input. However, it
+        // is reasonable to actually test / validate user input as part of
+        // the user trigger (e.g. We could conditionally route based on message)
+        $case->input($firstTask->getId(), ['message' => 'Hello, World!']);
+
+        $events = $case->getUncommittedEvents();
+
+        // Events would be normally be stored in an EventStore and then dispatched to
+        // an bus where projectors are subscribed to receive them.
+
+        $projector = new SimulationProjector(
+            $simulation = new Simulation()
+        );
+
+        foreach ($events as $event) {
+            $projector->handle($event);
+        }
+
+        return new JsonResponse($simulation->asArray());
+    }
+
+    public function showComplexSimulationJson()
+    {
+        $definition = ProcessDefinitionFactory::userTriggeredComplex();
+        $firstUserTriggeredTask = $definition->getTasks()[1];
+        $secondUserTriggeredTask = $definition->getTasks()[3];
+
+        $case = Workflow::start($definition);
+        $case->input($firstUserTriggeredTask->getId());
+        $case->input($secondUserTriggeredTask->getId());
+
+        $events = $case->getUncommittedEvents();
+
+        // Events would be normally be stored in an EventStore and then dispatched to
+        // an bus where projectors are subscribed to receive them.
+
+        $projector = new SimulationProjector(
+            $simulation = new Simulation()
+        );
+
+        foreach ($events as $event) {
+            $projector->handle($event);
+        }
+
+        return new JsonResponse($simulation->asArray());
+    }
 }
