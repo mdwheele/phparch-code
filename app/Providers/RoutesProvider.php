@@ -35,8 +35,7 @@ class RoutesProvider implements ControllerProviderInterface
         $controllers->get('/workflows/user/basic', WorkflowController::class . ':showUserBasic')->bind('workflow.user.basic');
         $controllers->get('/workflows/user/complex', WorkflowController::class . ':showUserComplex')->bind('workflow.user.complex');
 
-        $controllers->get('/vuejs/graphviz', WorkflowController::class . ':showVueApp')->bind('vuejs.graphviz');
-        $controllers->get('/vuejs/jointjs', WorkflowController::class . ':showJointJSApp')->bind('vuejs.jointjs');
+        $controllers->get('/vuejs', WorkflowController::class . ':showVueApp')->bind('vuejs');
 
         $controllers->get('/api/simulation/basic', WorkflowController::class . ':showBasicSimulationJson');
         $controllers->get('/api/simulation/complex', WorkflowController::class . ':showComplexSimulationJson');

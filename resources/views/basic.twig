@@ -1,12 +1,14 @@
 {% extends "layouts/master.twig" %}
 
 {% block content %}
-    {% for step in simulation.steps %}
-        <h3>✉ {{ step.heading }}</h3>
-        {% if step.summary %}<p>&ldquo;{{ step.summary | raw }}&rdquo;</p>{% endif %}
-        <img width="700" src="{{ step.graph }}" />
-        <h5>Case Attributes</h5>
-        <pre>{{ step.attributes }}</pre>
-        <hr>
-    {% endfor %}
+    <div class="graphviz-simulation">
+        {% for step in simulation.steps %}
+            <h3>✉ {{ step.heading }}</h3>
+            {% if step.summary %}<p>&ldquo;{{ step.summary | raw }}&rdquo;</p>{% endif %}
+            <img src="{{ step.graph }}" />
+            <h5>Case Attributes</h5>
+            <pre>{{ step.attributes }}</pre>
+            <hr>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -12,8 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "axios": "^0.15.3",
-    "vue": "^2.2.1",
-    "laravel-mix": "^0.8.8"
+    "jointjs": "^1.0.3",
+    "laravel-mix": "^0.8.8",
+    "vue": "^2.2.1"
   },
   "dependencies": {
     "vue-async-computed": "^3.0.0"

@@ -1,1 +1,41 @@
+[v-cloak] {
+  display: none;
+}
 
+body, html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  border: 1px solid #c9c9c9;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.container {
+  display: flex;
+  width: 960px;
+  margin: 0 auto;
+}
+
+.sidebar {
+  min-width: 200px;
+  padding-right: 20px;
+}
+
+.content {
+  flex: 1;
+}
+
+.graphviz-visualization {
+}
+
+.jointjs-visualization {
+  width: 100%;
+  height: 300px;
+}

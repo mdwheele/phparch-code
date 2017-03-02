@@ -9,27 +9,10 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-
-        #container {
-            display: flex;
-            width: 960px;
-            margin: 0 auto;
-        }
-
-        #sidebar {
-            width: 300px;
-            padding-right: 20px;
-        }
-    </style>
 </head>
 <body>
-    <div id="container" v-cloak>
-        <div id="sidebar">
+    <div class="container" v-cloak>
+        <div class="sidebar">
             <h3>Triggered Automatically</h3>
             <ul>
                 <li><a href="{{ url('workflow.basic') }}">Basic</a></li>
@@ -43,11 +26,10 @@
 
             <h3>Vue.js</h3>
             <ul>
-                <li><a href="{{ url('vuejs.graphviz') }}">Graphviz</a></li>
-                <li><a href="{{ url('vuejs.jointjs') }}">JointJS</a></li>
+                <li><a href="{{ url('vuejs') }}">Open</a></li>
             </ul>
         </div>
-        <div id="content">
+        <div class="content">
             {% block content %}{% endblock %}
         </div>
     </div>

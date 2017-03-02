@@ -10,27 +10,38 @@
             <span>{{ current + 1 }} / {{ steps.length }}</span>
             <button @click="prev">Previous</button>
             <button @click="next">Next</button>
+
+            <input id="graphviz" type="radio" value="graphviz" v-model="form.visualization">
+            <label for="graphviz">Graphviz</label>
+            <input id="jointjs" type="radio" value="jointjs" v-model="form.visualization">
+            <label for="jointjs">JointJS</label>
+
             <p v-if="form.loading">Loading...</p>
         </div>
 
         <div v-if="step">
-            <h3>✉ {{ step.heading }}</h3>
-            <p v-if="step.summary" v-html="step.summary"></p>
-            <img width="700" :src="step.graph" />
-            <h5>Case Attributes</h5>
-            <pre>{{ step.attributes }}</pre>
+            <graphviz-visualization v-if="form.visualization == 'graphviz'" :step="step"></graphviz-visualization>
+            <joint-visualization v-if="form.visualization == 'jointjs'" :step="step"></joint-visualization>
         </div>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import GraphvizVisualization from './GraphvizVisualization.vue'
+    import JointVisualization from './JointVisualization.vue'
 
     export default {
+        components: {
+            GraphvizVisualization,
+            JointVisualization
+        },
+
         data() {
             return {
                 form: {
-                    loading: false
+                    loading: false,
+                    visualization: 'jointjs'
                 },
 
                 simulation: null,
@@ -48,7 +59,6 @@
         created() {
             this.simulation = 'basic'
         },
-
         watch: {
             simulation(sim) {
                 this.form.loading = true;
