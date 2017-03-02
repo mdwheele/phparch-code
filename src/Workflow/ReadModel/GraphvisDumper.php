@@ -43,6 +43,49 @@ class GraphvisDumper
             .$this->endDot();
     }
 
+    public function dumpArray(ProcessDefinition $definition, Marking $marking)
+    {
+        $output = [
+            'nodes' => [],
+            'edges' => [],
+        ];
+
+        foreach ($definition->getConditions() as $condition) {
+            $node = [
+                'id' => $condition->getId()->toString(),
+                'label' => $this->dotize($condition->getId()->toString()),
+                'marked' => false,
+                'type' => 'condition'
+            ];
+
+            if ($definition->getSource() == $condition) {
+                $node['type'] = 'source';
+            }
+
+            if ($marking->has($condition)) {
+                $node['marked'] = true;
+            }
+
+            if ($definition->getSink() == $condition) {
+                $node['type'] = 'sink';
+            }
+
+            $output['nodes'][] = $node;
+        }
+
+        foreach ($definition->getTasks() as $task) {
+            $output['nodes'][] = [
+                'id' => $task->getId()->toString(),
+                'label' => $this->dotize($task->getId()->toString()),
+                'type' => 'task'
+            ];
+        }
+
+        $output['edges'] = $this->findArcs($definition, $marking);
+
+        return $output;
+    }
+
     /**
      * Return output that is inline image data in the format `data:image/png`
      * usable in the HTML5 <img> `src` attribute.

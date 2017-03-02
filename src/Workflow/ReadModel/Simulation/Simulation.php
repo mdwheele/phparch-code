@@ -25,6 +25,7 @@ class Simulation
             return [
                 'heading' => $step->heading,
                 'summary' => $step->summary,
+                'img' => $step->img,
                 'graph' => $step->graph,
                 'attributes' => json_decode($step->attributes)
             ];

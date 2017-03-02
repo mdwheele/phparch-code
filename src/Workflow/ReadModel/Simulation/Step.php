@@ -8,6 +8,7 @@ class Step
 {
     public $heading;
     public $summary;
+    public $img;
     public $graph;
 
     /**
@@ -15,9 +16,10 @@ class Step
      */
     public $attributes;
 
-    public function __construct($heading, $summary, $graph, AttributeStore $attributes)
+    public function __construct($heading, $summary, $img, $graph, AttributeStore $attributes)
     {
         $this->summary = $summary;
+        $this->img = $img;
         $this->graph = $graph;
         $this->attributes = json_encode($attributes->all(), JSON_PRETTY_PRINT);
         $this->heading = $heading;

@@ -51,6 +51,7 @@ class SimulationProjector extends Projector
                 "Workflow Started",
                 "The workflow case number is <kbd>{$event->caseNumber}</kbd>.",
                 $this->screenshot(),
+                $this->graph(),
                 $event->attributes
             )
         );
@@ -65,6 +66,7 @@ class SimulationProjector extends Projector
                 "Input Was Provided",
                 "User input was provided to '{$event->taskId}''.",
                 $this->screenshot(),
+                $this->graph(),
                 $event->attributes
             )
         );
@@ -77,6 +79,7 @@ class SimulationProjector extends Projector
                 "Workflow Task Enabled",
                 "<kbd>{$event->taskId->toString()}</kbd> became enabled.",
                 $this->screenshot(),
+                $this->graph(),
                 $this->attributes
             )
         );
@@ -91,6 +94,7 @@ class SimulationProjector extends Projector
                 "Workflow Task Fired",
                 "<kbd>{$event->taskId->toString()}</kbd> was fired.",
                 $this->screenshot(),
+                $this->graph(),
                 $this->attributes
             )
         );
@@ -103,6 +107,7 @@ class SimulationProjector extends Projector
                 "Workflow Finished",
                 "",
                 $this->screenshot(),
+                $this->graph(),
                 $this->attributes
             )
         );
@@ -115,5 +120,12 @@ class SimulationProjector extends Projector
         return $dumper->createImageSrc(
             $dumper->dump($this->definition, $this->marking)
         );
+    }
+
+    private function graph()
+    {
+        $dumper = new GraphvisDumper();
+
+        return $dumper->dumpArray($this->definition, $this->marking);
     }
 }

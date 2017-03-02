@@ -5,7 +5,7 @@
         {% for step in simulation.steps %}
             <h3>✉ {{ step.heading }}</h3>
             {% if step.summary %}<p>&ldquo;{{ step.summary | raw }}&rdquo;</p>{% endif %}
-            <img src="{{ step.graph }}" />
+            <img src="{{ step.img }}" />
             <h5>Case Attributes</h5>
             <pre>{{ step.attributes }}</pre>
             <hr>
