@@ -1,15 +1,16 @@
 <template>
     <div>
-        <h2>Simulations</h2>
+        <h2>Simulation</h2>
 
         <div class="workflow-toolbar">
             <select v-model="simulation">
                 <option value="basic">Basic</option>
                 <option value="complex">Complex</option>
             </select>
-            <button @click="prev">Previous</button>
             <span>{{ current + 1 }} / {{ steps.length }}</span>
+            <button @click="prev">Previous</button>
             <button @click="next">Next</button>
+            <p v-if="form.loading">Loading...</p>
         </div>
 
         <div v-if="step">
@@ -28,6 +29,10 @@
     export default {
         data() {
             return {
+                form: {
+                    loading: false
+                },
+
                 simulation: null,
                 current: 0,
                 steps: []
@@ -46,8 +51,11 @@
 
         watch: {
             simulation(sim) {
+                this.form.loading = true;
+
                 axios.get('/api/simulation/' + this.simulation).then(response => {
                     this.current = 0;
+                    this.form.loading = false;
                     this.steps = response.data
                 });
             }

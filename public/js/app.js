@@ -1824,12 +1824,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
+            form: {
+                loading: false
+            },
+
             simulation: null,
             current: 0,
             steps: []
@@ -1852,8 +1857,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         simulation: function simulation(sim) {
             var _this = this;
 
+            this.form.loading = true;
+
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/simulation/' + this.simulation).then(function (response) {
                 _this.current = 0;
+                _this.form.loading = false;
                 _this.steps = response.data;
             });
         }
@@ -2073,7 +2081,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h2', [_vm._v("Simulations")]), _vm._v(" "), _c('div', {
+  return _c('div', [_c('h2', [_vm._v("Simulation")]), _vm._v(" "), _c('div', {
     staticClass: "workflow-toolbar"
   }, [_c('select', {
     directives: [{
@@ -2101,15 +2109,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "complex"
     }
-  }, [_vm._v("Complex")])]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Complex")])]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.current + 1) + " / " + _vm._s(_vm.steps.length))]), _vm._v(" "), _c('button', {
     on: {
       "click": _vm.prev
     }
-  }, [_vm._v("Previous")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.current + 1) + " / " + _vm._s(_vm.steps.length))]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Previous")]), _vm._v(" "), _c('button', {
     on: {
       "click": _vm.next
     }
-  }, [_vm._v("Next")])]), _vm._v(" "), (_vm.step) ? _c('div', [_c('h3', [_vm._v("✉ " + _vm._s(_vm.step.heading))]), _vm._v(" "), (_vm.step.summary) ? _c('p', {
+  }, [_vm._v("Next")]), _vm._v(" "), (_vm.form.loading) ? _c('p', [_vm._v("Loading...")]) : _vm._e()]), _vm._v(" "), (_vm.step) ? _c('div', [_c('h3', [_vm._v("✉ " + _vm._s(_vm.step.heading))]), _vm._v(" "), (_vm.step.summary) ? _c('p', {
     domProps: {
       "innerHTML": _vm._s(_vm.step.summary)
     }
