@@ -57,11 +57,13 @@
                     let node = null;
 
                     if (el.type == 'task') {
+                        let label = `${el.label}\n(${el.trigger})`
+
                         node = new joint.shapes.basic.Rect({
                             id: el.id,
                             size: { width: width, height: height },
                             attrs: {
-                                text: { text: el.label, 'font-size': letterSize, 'font-family': 'monospace' },
+                                text: { text: label, 'font-size': letterSize, 'font-family': 'monospace' },
                             }
                         })
                     } else {
@@ -79,7 +81,7 @@
                     if (el.type == 'source' || el.type == 'sink') {
                         node.attr({
                             circle: {
-                                fill: 'grey'
+                                fill: '#ffcccc'
                             }
                         })
                     }
@@ -87,7 +89,7 @@
                     if (el.marked) {
                         node.attr({
                             circle: {
-                                stroke: 'red'
+                                stroke: '#cc0000'
                             }
                         })
                     }
@@ -108,7 +110,7 @@
                 })
 
                 joint.layout.DirectedGraph.layout(this.graph, { setLinkVertices: false, rankDir: 'LR' })
-                this.paper.fitToContent()
+                this.paper.scaleContentToFit()
             }
         }
     }

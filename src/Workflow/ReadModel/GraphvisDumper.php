@@ -77,7 +77,8 @@ class GraphvisDumper
             $output['nodes'][] = [
                 'id' => $task->getId()->toString(),
                 'label' => $this->dotize($task->getId()->toString()),
-                'type' => 'task'
+                'type' => 'task',
+                'trigger' => $task->getTriggerType()
             ];
         }
 
