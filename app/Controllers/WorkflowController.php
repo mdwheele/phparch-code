@@ -89,11 +89,6 @@ class WorkflowController
         return $app->render('basic.twig', compact('simulation'));
     }
 
-    public function showVueApp(Application $app)
-    {
-        return $app->render('vue.twig');
-    }
-
     public function showBasicSimulationJson()
     {
         $definition = ProcessDefinitionFactory::userTriggeredBasic();
@@ -146,5 +141,15 @@ class WorkflowController
         }
 
         return new JsonResponse($simulation->asArray());
+    }
+
+    public function showVueApp(Application $app)
+    {
+        return $app->render('vue.twig');
+    }
+
+    public function showJointJSApp(Application $app)
+    {
+        return $app->render('vue.twig');
     }
 }

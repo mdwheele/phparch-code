@@ -1820,27 +1820,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
-            message: 'Hello, Vue!',
-            simulation: 'basic'
+            simulation: null,
+            current: 0,
+            steps: []
         };
     },
 
 
-    asyncComputed: {
-        steps: function steps() {
+    computed: {
+        step: function step() {
+            return this.steps[this.current];
+        }
+    },
+
+    created: function created() {
+        this.simulation = 'basic';
+    },
+
+
+    watch: {
+        simulation: function simulation(sim) {
             var _this = this;
 
-            var steps = [];
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/simulation/' + this.simulation).then(function (response) {
-                return _this.steps = response.data;
+                _this.current = 0;
+                _this.steps = response.data;
             });
-            return steps;
+        }
+    },
+
+    methods: {
+        next: function next() {
+            this.current = (this.current + 1) % this.steps.length;
+        },
+        prev: function prev() {
+            if (this.current - 1 < 0) {
+                this.current = this.steps.length - 1;
+                return;
+            }
+
+            this.current--;
         }
     }
 };
@@ -2044,11 +2073,9 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h1', {
-    domProps: {
-      "textContent": _vm._s(_vm.message)
-    }
-  }), _vm._v(" "), _c('select', {
+  return _c('div', [_c('h2', [_vm._v("Simulations")]), _vm._v(" "), _c('div', {
+    staticClass: "workflow-toolbar"
+  }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2074,14 +2101,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "complex"
     }
-  }, [_vm._v("Complex")])]), _vm._v(" "), _vm._l((_vm.steps), function(step) {
-    return _c('div', [_c('h3', [_vm._v("✉ " + _vm._s(step.heading))]), _vm._v(" "), (step.summary) ? _c('p', [_vm._v("“" + _vm._s(step.summary) + "”")]) : _vm._e(), _vm._v(" "), _c('img', {
-      attrs: {
-        "width": "700",
-        "src": step.graph
-      }
-    }), _vm._v(" "), _c('h5', [_vm._v("Case Attributes")]), _vm._v(" "), _c('pre', [_vm._v(_vm._s(step.attributes))]), _vm._v(" "), _c('hr')])
-  })], 2)
+  }, [_vm._v("Complex")])]), _vm._v(" "), _c('button', {
+    on: {
+      "click": _vm.prev
+    }
+  }, [_vm._v("Previous")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.current + 1) + " / " + _vm._s(_vm.steps.length))]), _vm._v(" "), _c('button', {
+    on: {
+      "click": _vm.next
+    }
+  }, [_vm._v("Next")])]), _vm._v(" "), (_vm.step) ? _c('div', [_c('h3', [_vm._v("✉ " + _vm._s(_vm.step.heading))]), _vm._v(" "), (_vm.step.summary) ? _c('p', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.step.summary)
+    }
+  }) : _vm._e(), _vm._v(" "), _c('img', {
+    attrs: {
+      "width": "700",
+      "src": _vm.step.graph
+    }
+  }), _vm._v(" "), _c('h5', [_vm._v("Case Attributes")]), _vm._v(" "), _c('pre', [_vm._v(_vm._s(_vm.step.attributes))])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
